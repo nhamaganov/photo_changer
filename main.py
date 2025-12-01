@@ -30,8 +30,9 @@ def draw_price_badge(image, price_number: str):
     y2 = h - margin_bottom
 
     badge_color = (0, 94, 184)
+
     # --- скругление левых углов ---
-    radius = badge_height // 2.8  # мягкое скругление слева
+    radius = badge_height // 2.8 
 
     # --- рисуем основное тело прямоугольника ---
     draw.rectangle((x1 + radius, y1, x2, y2), fill=badge_color)
@@ -58,6 +59,8 @@ def draw_price_badge(image, price_number: str):
     price_text = f"₽{price_number}"
 
     font_size = int(badge_height * 0.7)
+
+    # проверяем наличие шрифта, иначе будет стандартный
     try:
         font = ImageFont.truetype("fonts/RobotoCondensed-Bold.ttf", font_size)
     except OSError:
@@ -104,27 +107,21 @@ def make_image(
     margin: int = 15,
     logo_scale: float = 0.90
 ):
-    """
-    Итог:
-    - лекарство в центре
-    - верхний логотип сверху
-    - нижний логотип (с надписью) слева снизу
-    - цена справа снизу
-    - квадрат
-    """
+    """Соединяет все элементы вместе, и создает карточку товара"""
 
+    # Берем имеющиеся логотипы
     top_logo_path = "logos/pharmacy_logo.png"
     bottom_logo_path = "logos/apteka.png"
 
-    # ЛЕКАРСТВО
+    # Открываем изображение с лекарством
     product_img = Image.open(product_path).convert("RGBA")
     pw, ph = product_img.size
 
-    # ХОЛСТ
+    # Создаем холст, куда помещаем изображение
     canvas = Image.new("RGB", (pw + 2 * padding, ph + 2 * padding), (255, 255, 255))
     canvas.paste(product_img, (padding, padding), product_img)
 
-    # ВЕРХНИЙ ЛОГОТИП
+    # Добавляем логотип фармэконом на холст
     logo_img = Image.open(top_logo_path).convert("RGBA")
     lw, lh = logo_img.size
 
@@ -136,27 +133,29 @@ def make_image(
     logo_x = (canvas.size[0] - target_logo_width) // 2
     canvas.paste(logo_resized, (logo_x, margin), logo_resized)
 
-    # КВАДРАТ
+    # Делаем из холста квадрат
     square_canvas = make_square_canvas(canvas)
 
-    # НИЖНИЙ ЛОГОТИП (с текстом)
+    # Добовляем логотип с текстом
     draw_bottom_logo(square_canvas, bottom_logo_path)
 
-    # ЦЕНА
+    # Добавляем цену
     draw_price_badge(square_canvas, price_number)
 
-    # СОХРАНЕНИЕ
+    # Сохраняем
     square_canvas.save(output_path)
     print(f"Готово! Изображение сохранено: {output_path}")
 
 
 if __name__ == "__main__":
+    # если не переданы нужные аргументы, то выходим из скрипта
     if len(sys.argv) < 3:
         print("Использование: python script.py <лекарство> <цена> [результат.png]")
         sys.exit(1)
 
+    # получаем аргументы из терминала
     product_path = sys.argv[1]
-    price_number = sys.argv[2]
+    price_number = sys.argv[2] 
     output_path = sys.argv[3] if len(sys.argv) >= 4 else "result.png"
 
     make_image(product_path, price_number, output_path)
