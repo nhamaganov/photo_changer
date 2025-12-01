@@ -59,9 +59,7 @@ def draw_price_badge(image, price_number: str):
 
     font_size = int(badge_height * 0.7)
     try:
-        # font = ImageFont.truetype("fonts/RobotoCondensed-Regular.ttf", font_size)
         font = ImageFont.truetype("fonts/RobotoCondensed-Bold.ttf", font_size)
-        # font = ImageFont.truetype("C:/Windows/Fonts/ariblk.ttf", font_size)
     except OSError:
         font = ImageFont.load_default()
 
