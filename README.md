@@ -12,13 +12,15 @@
 
 
 #### Далее вводим в терминал цепочку команд:
-1. python -m venv venv
-2. .\venv\Scripts\activate
-3. pip install -r requirements.txt
+1. git clone https://github.com/nhamaganov/photo_changer.git
+2. cd photo_changer
+3. python -m venv venv
+4. .\venv\Scripts\activate
+5. pip install -r requirements.txt
 
 ## Применение
 
-1. Для начала нужно подготовить изображение лекарства, желательно положить его в один каталог вместе со скриптом.
+1. Подготавливаем изображение лекарства, желательно положить его в один каталог вместе со скриптом.
 
 2. Убедиться, что внутри терминала вы находитесь в одном каталоге вместе с исполняемым файлом
 
