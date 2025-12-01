@@ -5,9 +5,9 @@ import sys
 def make_square_canvas(img: Image.Image) -> Image.Image:
     """Делает изображение квадратным по большей стороне."""
     w, h = img.size
-    side = max(w, h)
+    side = max(w, h)    # Выбираем максимальную сторону из возможных
     square = Image.new("RGB", (side, side), (255, 255, 255))
-    square.paste(img, ((side - w) // 2, (side - h) // 2))
+    square.paste(img, ((side - w) // 2, (side - h) // 2))   # Создаёт белый квадрат, в цет которого вставляется изображение лекарства
     return square
 
 
@@ -100,8 +100,6 @@ def draw_bottom_logo(image, bottom_logo_path: str):
 
 def make_final_image(
     product_path: str,
-    top_logo_path: str,
-    bottom_logo_path: str,      # новый параметр — логотип с надписью
     price_number: str,
     output_path: str = "result.png",
     padding: int = 70,
@@ -116,6 +114,9 @@ def make_final_image(
     - цена справа снизу
     - квадрат
     """
+
+    top_logo_path = "logos/pharmacy_logo.png"
+    bottom_logo_path = "logos/apteka.png"
 
     # ЛЕКАРСТВО
     product_img = Image.open(product_path).convert("RGBA")
@@ -152,14 +153,12 @@ def make_final_image(
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 5:
-        print("Использование: python script.py <лекарство> <верхний_логотип> <нижний_логотип> <цена> [результат.png]")
+    if len(sys.argv) < 3:
+        print("Использование: python script.py <лекарство> <цена> [результат.png]")
         sys.exit(1)
 
     product_path = sys.argv[1]
-    top_logo_path = sys.argv[2]
-    bottom_logo_path = sys.argv[3]
-    price_number = sys.argv[4]
-    output_path = sys.argv[5] if len(sys.argv) >= 6 else "result.png"
+    price_number = sys.argv[2]
+    output_path = sys.argv[3] if len(sys.argv) >= 4 else "result.png"
 
-    make_final_image(product_path, top_logo_path, bottom_logo_path, price_number, output_path)
+    make_final_image(product_path, price_number, output_path)
