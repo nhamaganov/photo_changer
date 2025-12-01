@@ -12,7 +12,7 @@
 
 
 #### Далее вводим в терминал цепочку команд:
-1. git clone https://github.com/nhamaganov/photo_changer.git
+1. git clone `https://github.com/nhamaganov/photo_changer.git`
 2. cd photo_changer
 3. python -m venv venv
 4. .\venv\Scripts\activate
