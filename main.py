@@ -98,7 +98,7 @@ def draw_bottom_logo(image, bottom_logo_path: str):
     image.paste(bottom_logo_resized, (x, y), bottom_logo_resized)
 
 
-def make_final_image(
+def make_image(
     product_path: str,
     price_number: str,
     output_path: str = "result.png",
@@ -161,4 +161,4 @@ if __name__ == "__main__":
     price_number = sys.argv[2]
     output_path = sys.argv[3] if len(sys.argv) >= 4 else "result.png"
 
-    make_final_image(product_path, price_number, output_path)
+    make_image(product_path, price_number, output_path)
